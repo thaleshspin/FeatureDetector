@@ -1,8 +1,10 @@
 #include <iostream>
 #include <math.h>
 #include <time.h>
-#include <cv.h>
-#include <highgui.h>
+// #include <cv.h>
+// #include <highgui.h>
+#include <opencv2/opencv.hpp>
+#include <opencv2/highgui/highgui.hpp>
 #include "geometry_utils.h"
 
 #include <opencv2/core/core.hpp>

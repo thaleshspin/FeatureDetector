@@ -45,9 +45,9 @@ void clustering(Mat img)
     int R, G, B;
     int col;
 
-    for (int y = 0; y < 240; y++)
+    for (int y = 0; y < img.rows; y++)
     {
-        for (int x = 0; x < 320; x++)
+        for (int x = 0; x < img.cols; x++)
         {
             Vec3b color = img.at<Vec3b>(y, x);
             B = (int)color.val[0];

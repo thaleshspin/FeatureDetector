@@ -27,29 +27,38 @@ int main(int argc, char **argv)
 {
 	Mat img_rgb;
 	loadFile("clustering.txt");
-	img_rgb = imread(argv[1], CV_LOAD_IMAGE_COLOR);
-	vector<field_point> result_intersections;
-	vector<goalposts> goalPosts;
-	clustering(img_rgb);
-	extract_features(img_rgb, result_intersections, goalPosts);
-	for (int i = 0; i < goalPosts.size(); i++)
+	// img_rgb = imread(argv[1], CV_LOAD_IMAGE_COLOR);
+	VideoCapture cap(argv[1]);
+	
+	while (1)
 	{
-		//cout << "Feature " << i << endl;
-		//dis_bear test = pixel2dis_bear(normalizePixelPosition(img_rgb, goalPosts[i].root_position));
-		//cout << "distance " << test.distance << endl;
-		//cout << "angle " << test.bearing << endl;
-		//cout << "--------------" << endl;
-	}
+		cap >> img_rgb;
 
-	for (int i = 0; i < result_intersections.size(); i++)
-	{
-		//cout << "Intersection " << i << endl;
-		//cout << result_intersections[i].position.y << endl;
-		//cout << result_intersections[i].type << endl;
-	}
+		vector<field_point> result_intersections;
+		vector<goalposts> goalPosts;
+		clustering(img_rgb);
+		extract_features(img_rgb, result_intersections, goalPosts);
+		for (int i = 0; i < goalPosts.size(); i++)
+		{
+			//cout << "Feature " << i << endl;
+			//dis_bear test = pixel2dis_bear(normalizePixelPosition(img_rgb, goalPosts[i].root_position));
+			//cout << "distance " << test.distance << endl;
+			//cout << "angle " << test.bearing << endl;
+			//cout << "--------------" << endl;
+		}
 
-	//imshow("va1", img_rgb);
-	waitKey(0);
-
+		for (int i = 0; i < result_intersections.size(); i++)
+		{
+			//cout << "Intersection " << i << endl;
+			//cout << result_intersections[i].position.y << endl;
+			//cout << result_intersections[i].type << endl;
+		}
+		 char c=(char)waitKey(25);
+		 if(c==27)
+		 	break;
+		//imshow("va1", img_rgb);
+			
+	}	
+	//waitKey(0);	
 	return 0;
 }

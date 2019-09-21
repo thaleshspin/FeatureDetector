@@ -1,8 +1,10 @@
 #include <iostream>
 #include <math.h>
 #include <time.h>
-#include <cv.h>
-#include <highgui.h>
+//#include <cv.h>
+//#include <highgui.h>
+#include <opencv2/core/core.hpp>
+#include <opencv2/highgui/highgui.hpp>
 #include "geometry_utils.h"
 #include "img_processing.h"
 #include "line_detection.h"
@@ -294,7 +296,7 @@ void line_extraction(Mat image, vector<Vec4i> &produced_lines, int hor_step, int
 			}
 			else
 			{
-				if(line.size() >= 4)
+				if(line.size() >= 10)
 				{
 					double sum_error;
 					line_error(line, start, best_candidate, sum_error);
