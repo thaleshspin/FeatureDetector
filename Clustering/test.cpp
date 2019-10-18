@@ -70,20 +70,19 @@ int main(int argc, char **argv)
 {
     Mat image0;
 
-    cv::CommandLineParser parser(argc, argv,
-                                 "{help h | | show help message}{@image|../data/fruits.jpg| input image}");
-    if (parser.has("help"))
+    if (argc != 2)
     {
-        parser.printMessage();
-        return 0;
+        cout << " Usage: display_image ImageToLoadAndDisplay" << endl;
+        return -1;
     }
-    string filename = parser.get<string>("@image");
-    image0 = imread(filename, 1);
-    if (image0.empty())
+
+    Mat image;
+    image = imread(argv[1], CV_LOAD_IMAGE_COLOR); // Read the file
+
+    if (!image.data) // Check for invalid input
     {
-        cout << "Image empty\n";
-        parser.printMessage();
-        return 0;
+        cout << "Could not open or find the image" << std::endl;
+        return -1;
     }
     imshow("image", image0);
 

@@ -80,6 +80,10 @@ int connectivity = 4;
 int isColor = true;
 bool useMask = false;
 int newMaskVal = 255;
+int mode;
+#define FIELD 0
+#define OPPONENT 1
+
 static void onMouse(int event, int x, int y, int, void *)
 {
     if (event != EVENT_LBUTTONDOWN)
@@ -89,9 +93,12 @@ static void onMouse(int event, int x, int y, int, void *)
     int up = ffillMode == 0 ? 0 : upDiff;
     int flags = connectivity + (newMaskVal << 8) +
                 (ffillMode == 1 ? FLOODFILL_FIXED_RANGE : 0);
-    int b = 0;   //(unsigned)theRNG() & 255;
-    int g = 255; //(unsigned)theRNG() & 255;
-    int r = 0;   //(unsigned)theRNG() & 255;
+    int b,g,r;
+
+    b = 0;   //(unsigned)theRNG() & 255;
+    g = 255; //(unsigned)theRNG() & 255;
+    r = 0;   //(unsigned)theRNG() & 255;
+
     int area;
 
     Rect ccomp;
@@ -135,31 +142,30 @@ static void onMouse(int event, int x, int y, int, void *)
     }
     clear(colours);
     loadFile("clustering.txt");
-    save(colours, "clustering.txt");
+    save(colours, "clustering.txt");    
 }
 
 int main(int argc, char **argv)
 {
-    cv::CommandLineParser parser(argc, argv,
-                                 "{help h | | show help message}{@image|../data/fruits.jpg| input image}");
-    if (parser.has("help"))
+    if (argc != 2)
     {
-        parser.printMessage();
-        return 0;
+        cout << " Usage: display_image ImageToLoadAndDisplay" << endl;
+        return -1;
     }
-    string filename = parser.get<string>("@image");
-    image0 = imread(filename, 1);
-    if (image0.empty())
+
+    Mat image;
+    image = imread(argv[1], CV_LOAD_IMAGE_COLOR); // Read the file
+
+    if (!image.data) // Check for invalid input
     {
-        cout << "Image empty\n";
-        parser.printMessage();
-        return 0;
+        cout << "Could not open or find the image" << std::endl;
+        return -1;
     }
 
     image0.copyTo(image);
     namedWindow("image", 0);
-    createTrackbar("lo_diff", "image", &loDiff, 255, 0);
-    createTrackbar("up_diff", "image", &upDiff, 255, 0);
+    //createTrackbar("lo_diff", "image", &loDiff, 255, 0);
+    //createTrackbar("up_diff", "image", &upDiff, 255, 0);
     setMouseCallback("image", onMouse, 0);
     for (;;)
     {
