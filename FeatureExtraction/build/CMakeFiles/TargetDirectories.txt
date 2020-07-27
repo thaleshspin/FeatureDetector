@@ -1,3 +1,0 @@
-/home/user/Development/rinobot/codigos/projetos/FeatureDetector/FeatureExtraction/build/CMakeFiles/rebuild_cache.dir
-/home/user/Development/rinobot/codigos/projetos/FeatureDetector/FeatureExtraction/build/CMakeFiles/main.dir
-/home/user/Development/rinobot/codigos/projetos/FeatureDetector/FeatureExtraction/build/CMakeFiles/edit_cache.dir
