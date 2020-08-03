@@ -64,6 +64,6 @@ void clustering(Mat img)
             img.at<Vec3b>(y, x) = color;
         }
     }
-    imshow("Clusterized", img);
+    //imshow("Clusterized", img);
 }
 

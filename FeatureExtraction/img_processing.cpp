@@ -175,5 +175,5 @@ void remove_background(Mat image, Mat &lines, Mat &posts, Mat &ball, vector<Poin
 		}
 		hor_hist[j] /= image.rows;
 	}
-	imshow("va", field);
+	//imshow("va", field);
 }

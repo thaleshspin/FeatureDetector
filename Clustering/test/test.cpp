@@ -3,6 +3,8 @@
 #include <iostream>
 #include <fstream>
 
+#define VIDEO
+
 using namespace cv;
 
 using namespace std;
@@ -68,11 +70,52 @@ void clustering(Mat img)
 
 int main(int argc, char **argv)
 {
+    loadFile("clustering.txt");
+
+#ifndef VIDEO
     Mat img_rgb;
-	loadFile("clustering.txt");
-	img_rgb = imread(argv[1], CV_LOAD_IMAGE_COLOR);
+    img_rgb = imread(argv[1], CV_LOAD_IMAGE_COLOR);
     clustering(img_rgb);
 
     waitKey(0); // Wait for a keystroke in the window
+
+#endif
+
+#ifdef VIDEO
+    // Create a VideoCapture object and open the input file
+    // If the input is the web camera, pass 0 instead of the video file name
+    VideoCapture cap(argv[1]);
+
+    // Check if camera opened successfully
+    if (!cap.isOpened())
+    {
+        cout << "Error opening video stream or file" << endl;
+        return -1;
+    }
+
+    while (1)
+    {
+
+        Mat frame;
+        // Capture frame-by-frame
+        cap >> frame;
+
+        // If the frame is empty, bre ak immediately
+        if (frame.empty())
+            break;
+        clustering(frame);
+
+        // Press  ESC on keyboard to exit
+        char c = (char)waitKey(25);
+        if (c == 27)
+            break;
+    }
+
+    // When everything done, release the video capture object
+    cap.release();
+
+    // Closes all the frames
+    destroyAllWindows();
+#endif
     return 0;
 }

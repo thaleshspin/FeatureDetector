@@ -413,21 +413,23 @@ void line_most_prob_features(Mat image, vector<Vec4i> lines, vector<Vec4i> ellip
 	{
 		Mat sth;
 		image.copyTo(sth);
-		circle(sth, Point(all_type_intersections[i].position.x, all_type_intersections[i].position.y), 3, Scalar(0, 0, 255), 3, 8, 0);
-		cout << "inter [" << all_type_intersections[i].position.x << "," << all_type_intersections[i].position.y << "] "
-			 << " L: " << all_type_intersections[i].l.confidence << " T: " << all_type_intersections[i].t.confidence << " X: " << all_type_intersections[i].x.confidence << endl;
+		//circle(sth, Point(all_type_intersections[i].position.x, all_type_intersections[i].position.y), 3, Scalar(0, 0, 255), 3, 8, 0);
+		//cout << "inter [" << all_type_intersections[i].position.x << "," << all_type_intersections[i].position.y << "] "
+		//	 << " L: " << all_type_intersections[i].l.confidence << " T: " << all_type_intersections[i].t.confidence << " X: " << all_type_intersections[i].x.confidence << endl;
+		
 		stringstream ss;
 		ss << i;
 		field_point most_prob = decide_type(all_type_intersections[i]);
 		result_intersections.push_back(most_prob);
-		float precision = 0.7f;
+		float precision = 1.0f;
 		if (most_prob.type == 0)
 		{
-			cout << "feature " << ss.str() << " is a L" << endl;
-			imshow("feature_points" + ss.str(), sth);
+			//cout << "feature " << ss.str() << " is a L" << endl;
+			//imshow("feature_points" + ss.str(), sth);
 			if (all_type_intersections[i].l.confidence >= precision)
 			{
-				//	cout << "feature " << ss.str() << " is a L" << endl;
+					cout << "feature " << ss.str() << " is a L" << endl;
+					circle(sth, Point(all_type_intersections[i].position.x, all_type_intersections[i].position.y), 3, Scalar(0, 0, 255), 3, 8, 0);
 				//	imshow("feature_points" + ss.str(), sth);
 			}
 
@@ -436,25 +438,28 @@ void line_most_prob_features(Mat image, vector<Vec4i> lines, vector<Vec4i> ellip
 		}
 		else if (most_prob.type == 1)
 		{
-			cout << "feature " << ss.str() << " is a T" << endl;
-			imshow("feature_points" + ss.str(), sth);
+			//cout << "feature " << ss.str() << " is a T" << endl;
+			//imshow("feature_points" + ss.str(), sth);
 			if (all_type_intersections[i].t.confidence >= precision)
 			{
-				//cout << "feature " << ss.str() << " is a T" << endl;
+				cout << "feature " << ss.str() << " is a T" << endl;
+				circle(sth, Point(all_type_intersections[i].position.x, all_type_intersections[i].position.y), 3, Scalar(0, 0, 255), 3, 8, 0);
 				//imshow("feature_points" + ss.str(), sth);
 			}
 		}
 
 		else if (most_prob.type == 3)
 		{
-			cout << "feature " << ss.str() << " is a X" << endl;
-			imshow("feature_points" + ss.str(), sth);
+			//cout << "feature " << ss.str() << " is a X" << endl;
+			//imshow("feature_points" + ss.str(), sth);
 			if (all_type_intersections[i].x.confidence >= precision)
 			{
-				//cout << "feature " << ss.str() << " is a X" << endl;
+				cout << "feature " << ss.str() << " is a X" << endl;
+				circle(sth, Point(all_type_intersections[i].position.x, all_type_intersections[i].position.y), 3, Scalar(0, 0, 255), 3, 8, 0);
 				//imshow("feature_points" + ss.str(), sth);
 			}
 		}
+		imshow("features", sth);
 		//else
 		//	cout << "feature " << ss.str() << " is unknown" << endl;
 	}
