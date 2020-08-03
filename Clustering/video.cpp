@@ -198,10 +198,11 @@ void help(){
     cout << "Usage: ./this video.ext cluster1 cluster2 cluster3 ..." << endl <<
             "Exemple: ./this video.avi field sky yellows" << endl <<
             "" << endl << 
-            "Click on image to floodfill it;" << endl << 
+            "Click on image to floodfill it; !!!For each click, save(s) to buffer!!!" << endl << 
             "Keyboard Commands:" << endl <<
-            "\t(u)ndo, (p)ause, (n) Print Clusters," << endl << 
-            "\t(s)ave clusters to file" << endl <<
+            "\t(u)undo, (p)ause, (n) Print Clusters," << endl << 
+            "\t(s)save clusters to buffer" << endl <<
+            "\t(w)save clusters to file" << endl <<
             "\t1 - 9: change to cluster x"<< endl << 
             "\t(q)uit" << endl;
 }
